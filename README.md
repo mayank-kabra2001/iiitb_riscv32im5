@@ -312,6 +312,9 @@ The following commands are to merge external the lef files to the merged.nom.lef
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 ```
+# Synthesis
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/main/Images/vsdinv.png)
+
 
 # Placement and Routing
 
