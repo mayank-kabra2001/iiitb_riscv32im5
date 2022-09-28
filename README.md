@@ -284,18 +284,48 @@ The iiitb_riscv32im5.v file should contain the verilog RTL code you have used an
 
 Copy "sky130_fd_sc_hd__fast.lib", "sky130_fd_sc_hd__slow.lib", "sky130_fd_sc_hd__typical.lib" and "sky130_vsdinv.lef" files to src folder in your design.
 
+Final src folder should look like this:
+
+![Image]()
+
+The contents of the config.json are as follows:
+```
+{
+    "DESIGN_NAME": "top",
+    "VERILOG_FILES": "dir::src/iiitb_riscv.v",
+    "CLOCK_PORT": "clk",
+    "CLOCK_NET": "clk",
+    "GLB_RESIZER_TIMING_OPTIMIZATIONS": true,
+    "CLOCK_PERIOD": 10,
+    "PL_TARGET_DENSITY": 0.4,
+    "FP_SIZING" : "relative",
+    "pdk::sky130*": {
+        "FP_CORE_UTIL": 30,
+        "scl::sky130_fd_sc_hd": {
+            "FP_CORE_UTIL": 20
+        }
+    },
+    
+    "LIB_SYNTH": "dir::src/sky130_fd_sc_hd__typical.lib",
+    "LIB_FASTEST": "dir::src/sky130_fd_sc_hd__fast.lib",
+    "LIB_SLOWEST": "dir::src/sky130_fd_sc_hd__slow.lib",
+    "LIB_TYPICAL": "dir::src/sky130_fd_sc_hd__typical.lib",  
+    "TEST_EXTERNAL_GLOB": "dir::../iiitb_riscv32im5/src/*"
+}
+```
+
 Navigate to the openlane folder in terminal and give the following command :
 ```
 $ make mount (or use sudo as prefix)
 ```
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/layout1.jpeg)
+![Image]()
 
 
 After entering the openlane container give the following command:
 ```
 $ ./flow.tcl -interactive
 ```
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/layout2.jpeg)
+![Image]()
 
 
 This command will take you into the tcl console. In the tcl console type the following commands:
@@ -303,7 +333,7 @@ This command will take you into the tcl console. In the tcl console type the fol
 % package require openlane 0.9
 % prep -design iiitb_riscv32im5
 ```
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/layout3.jpeg)
+![Image]()
 
 
 The following commands are to merge external the lef files to the merged.nom.lef. In our case sky130_vsdiat is getting merged to the lef file
@@ -312,25 +342,145 @@ The following commands are to merge external the lef files to the merged.nom.lef
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 ```
+![Image]()
+
 # Synthesis
-![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/vsdinv.png)
+```
+% run_synthesis
+```
+![Image]()
+
+## Synthesis Reports
+
+Details of all the gates used:
+
+![Image]()
+
+Chip Area and vsdinv:
+
+![Image]()
+
+# Floorplan
+```
+% run_floorplan
+```
+![Image]()
+
+## Floorplan Reports
+
+Die Area:
+
+![Image]()
+
+Core Area:
+
+![Image]()
+
+# Placement
+```
+% run_placement
+```
+![Image]()
+
+The sky130_vsdinv should also reflect in your netlist after placement:
+
+![Image]()
+
+# Clock Tree Synthesis
+```
+% run_cts
+```
+![Image]()
+
+# Routing
+```
+% run_routing
+```
+![Image]()
+
+The sky130_vsdinv should also reflect in your netlist after routing:
+
+![Image]()
+
+We can open the def file and view the layout after the routing process by the following command:
+```
+$ magic -T /home/asmita/ASIC/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech read ../../tmp/merged.nom.lef def read top.def &
+```
+
+## NOTE - One command for the entire flow
+
+All the steps will be automated and all the files will be generated.
+```
+$ ./flow.tcl -design iiitb_riscv32im
+```
+
+We can open the mag file and view the layout after the whole process by the following command:
+```
+$ magic -T /home/asmita/ASIC/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech top.mag &
+```
+
+# Results post-layout
+
+## 1. Post Layout synthesis gate count
+![Image]()
+
+**Gate Count = **
+
+## 2. Area (box command)
+![Image]()
+
+**Area = **
+
+## 3. Performance
+Commands to be run in terminal:
+
+**Change these commands according to your machine**
+
+```
+$ sta 
+
+OpenSTA> read_liberty -max /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/src/sky130_fd_sc_hd__fast.lib 
+
+OpenSTA> read_liberty -min /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/src/sky130_fd_sc_hd__slow.lib 
+
+OpenSTA> read_verilog /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.27_09.51.42/results/routing/top.resized.v 
+
+OpenSTA> link_design top
+
+OpenSTA> read_sdc /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.27_09.51.42/results/cts/top.sdc 
+
+OpenSTA> read_spef /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.27_09.51.42/results/routing/top.nom.spef 
+
+OpenSTA> set_propagated_clock [all_clocks] 
+
+OpenSTA> report_checks 
+
+```
+![Image]()
+**Performance = 1/(clock period - slack) = **
 
 
-# Placement and Routing
+## 4. Flop/standard cell ratio
+![Image]()
 
-## Config.json file
+**Flop Ratio = Ratio of total number of flip flops / Total number of cells present in the design = **
 
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/img3.jpeg)
+## 5. Power (internal, switching, leakage and total)
+![Image]()
 
-## Running the synthesis, floorplan, placement commands
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/img1.jpeg)
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/img2.jpeg)
+**Internal Power = ** <br/>
+**Switching Power = ** <br/>
+**Leakage Power = ** <br/>
+**Total Power = **
 
-## Setup and Hold Slack after synthesis
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/img4.jpeg)
 
-## Floorplan Reports - Die Area
-![Image](https://github.com/Asmita-Zjigyasu/iiitb_riscv32im5/blob/main/Images/img5.jpeg)
+
+
+
+
+
+
+
 
 # Contibutors
 * Mayank Kabra, Student, IIIT Bangalore
@@ -355,8 +505,6 @@ add_lefs -src $lefs
 * [RISCV Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
 * [Robert Baruch Nmigen Tutorial](https://github.com/RobertBaruch/nmigen-tutorial)
 * [Function calls](https://github.com/riscv-collab/riscv-gnu-toolchain/issues/1088)
-
-
 
 
 
