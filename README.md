@@ -286,7 +286,7 @@ Copy "sky130_fd_sc_hd__fast.lib", "sky130_fd_sc_hd__slow.lib", "sky130_fd_sc_hd_
 
 Final src folder should look like this:
 
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/1.jpeg)
 
 The contents of the config.json are as follows:
 ```
@@ -318,14 +318,14 @@ Navigate to the openlane folder in terminal and give the following command :
 ```
 $ make mount (or use sudo as prefix)
 ```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/2.jpeg)
 
 
 After entering the openlane container give the following command:
 ```
 $ ./flow.tcl -interactive
 ```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/3.jpeg)
 
 
 This command will take you into the tcl console. In the tcl console type the following commands:
@@ -333,7 +333,7 @@ This command will take you into the tcl console. In the tcl console type the fol
 % package require openlane 0.9
 % prep -design iiitb_riscv32im5
 ```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/4.jpeg)
 
 
 The following commands are to merge external the lef files to the merged.nom.lef. In our case sky130_vsdiat is getting merged to the lef file
@@ -348,62 +348,55 @@ add_lefs -src $lefs
 ```
 % run_synthesis
 ```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/5.jpeg)
 
 ## Synthesis Reports
 
 Details of all the gates used:
 
-![Image]()
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/6a.jpeg)
 
-Chip Area and vsdinv:
+Chip Area and VSDINV cells: 
 
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/6b.jpeg)
 
 # Floorplan
 ```
 % run_floorplan
 ```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/7.jpeg)
 
 ## Floorplan Reports
 
 Die Area:
 
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/8.jpeg)
 
 Core Area:
 
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/9.jpeg)
 
 # Placement
 ```
 % run_placement
 ```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/10.jpeg)
 
 
 # Clock Tree Synthesis
 ```
 % run_cts
 ```
-![Image]()
-
-# Routing
-```
-% run_routing
-```
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/11.jpeg)
 
 # All the steps
-![Image]()
-![Image]()
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/12.jpeg)
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/12a.jpeg)
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/12b.jpeg)
 
 We can open the def file and view the layout after the routing process by the following command:
 ```
-$ magic -T /home/asmita/ASIC/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech read ../../tmp/merged.nom.lef def read top.def &
+$ magic -T /home/ubuntu/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech read ../../tmp/merged.nom.lef def read top.def &
 ```
 
 ## NOTE - One command for the entire flow
@@ -415,7 +408,7 @@ $ ./flow.tcl -design iiitb_riscv32im
 
 We can open the mag file and view the layout after the whole process by the following command:
 ```
-$ magic -T /home/asmita/ASIC/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech top.mag &
+$ magic -T /home/ubuntu/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech top.mag &
 ```
 
 # Results post-layout
@@ -438,17 +431,17 @@ Commands to be run in terminal:
 ```
 $ sta 
 
-OpenSTA> read_liberty -max /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/src/sky130_fd_sc_hd__fast.lib 
+OpenSTA> read_liberty -max /home/ubuntu/OpenLane/designs/iiitb_riscv32im5/src/sky130_fd_sc_hd__fast.lib 
 
-OpenSTA> read_liberty -min /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/src/sky130_fd_sc_hd__slow.lib 
+OpenSTA> read_liberty -min /home/ubuntu/OpenLane/designs/iiitb_riscv32im5/src/sky130_fd_sc_hd__slow.lib 
 
-OpenSTA> read_verilog /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.27_09.51.42/results/routing/top.resized.v 
+OpenSTA> read_verilog /home/ubuntu/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.28_04.59.39/results/routing/top.resized.v 
 
 OpenSTA> link_design top
 
-OpenSTA> read_sdc /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.27_09.51.42/results/cts/top.sdc 
+OpenSTA> read_sdc /home/ubuntu/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.28_04.59.39/results/cts/top.sdc 
 
-OpenSTA> read_spef /home/asmita/ASIC/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.27_09.51.42/results/routing/top.nom.spef 
+OpenSTA> read_spef /home/ubuntu/OpenLane/designs/iiitb_riscv32im5/runs/RUN_2022.09.28_04.59.39/results/routing/top.nom.spef 
 
 OpenSTA> set_propagated_clock [all_clocks] 
 
