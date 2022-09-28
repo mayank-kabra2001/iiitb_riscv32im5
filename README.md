@@ -342,7 +342,6 @@ The following commands are to merge external the lef files to the merged.nom.lef
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 ```
-![Image]()
 
 # Synthesis
 ```
