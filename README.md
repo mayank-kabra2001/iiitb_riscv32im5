@@ -355,6 +355,7 @@ add_lefs -src $lefs
 Details of all the gates used:
 
 ![Image]()
+![Image]()
 
 Chip Area and vsdinv:
 
@@ -382,9 +383,6 @@ Core Area:
 ```
 ![Image]()
 
-The sky130_vsdinv should also reflect in your netlist after placement:
-
-![Image]()
 
 # Clock Tree Synthesis
 ```
@@ -398,8 +396,9 @@ The sky130_vsdinv should also reflect in your netlist after placement:
 ```
 ![Image]()
 
-The sky130_vsdinv should also reflect in your netlist after routing:
-
+# All the steps
+![Image]()
+![Image]()
 ![Image]()
 
 We can open the def file and view the layout after the routing process by the following command:
