@@ -414,12 +414,12 @@ $ magic -T /home/ubuntu/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech top.m
 # Results post-layout
 
 ## 1. Post Layout synthesis gate count
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/13.jpeg)
 
 **Gate Count = **
 
 ## 2. Area (box command)
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/14.jpeg)
 
 **Area = **
 
@@ -448,31 +448,23 @@ OpenSTA> set_propagated_clock [all_clocks]
 OpenSTA> report_checks 
 
 ```
-![Image]()
-**Performance = 1/(clock period - slack) = **
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/15.jpeg)
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/16.jpeg)
+**Performance = 1/(clock period - slack) = *1/(30ns - 10.86ns) = 52.2 Mhz*
 
 
 ## 4. Flop/standard cell ratio
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/17.jpeg)
 
-**Flop Ratio = Ratio of total number of flip flops / Total number of cells present in the design = **
+**Flop Ratio = Ratio of total number of flip flops / Total number of cells present in the design = *2958/25594 = 0.115*
 
 ## 5. Power (internal, switching, leakage and total)
-![Image]()
+![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/18.jpeg)
 
-**Internal Power = ** <br/>
-**Switching Power = ** <br/>
-**Leakage Power = ** <br/>
-**Total Power = **
-
-
-
-
-
-
-
-
-
+**Internal Power = *7.45mW (73%)*  <br/>
+**Switching Power = *2.76mW (27%)* <br/>
+**Leakage Power = *130nW (0.0%)* <br/>
+**Total Power = *10.2mW (100%)*
 
 # Contibutors
 * Mayank Kabra, Student, IIIT Bangalore
