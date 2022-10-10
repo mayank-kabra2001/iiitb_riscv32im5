@@ -420,7 +420,7 @@ $ magic -T /home/ubuntu/OpenLane/pdks/sky130A/libs.tech/magic/sky130A.tech top.m
 ## 2. Area (box command)
 ![Image](https://github.com/mayank-kabra2001/iiitb_riscv32im5/blob/master/Images/14.jpeg)
 
-**Area = **
+**Area = *1.34 mm2*
 
 ## 3. Performance
 Commands to be run in terminal:
